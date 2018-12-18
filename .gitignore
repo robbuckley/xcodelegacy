@@ -3,6 +3,7 @@
 *.pkg
 *.tar.gz
 *.tar.xz
+.idea/
 
 build
 dgph

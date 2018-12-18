@@ -1038,7 +1038,9 @@ SPEC_EOF
             echo "*** Not modifying MacOSX Info.plist (found original at $PLATFORMDIR/Info.plist-original, uninstall first to force install)"
         elif [ -f "$PLATFORMDIR/Info.plist" ]; then
             mv "$PLATFORMDIR/Info.plist" "$PLATFORMDIR/Info.plist-original"
-            sed -e '/MinimumSDKVersion/{N;d;}' < "$PLATFORMDIR/Info.plist-original" > "$PLATFORMDIR/Info.plist"
+            # fix for https://github.com/devernay/xcodelegacy/issues/46
+            cp -p "$PLATFORMDIR/Info.plist" "$PLATFORMDIR/Info.plist-original"
+            plutil -remove MinimumSDKVersion "$PLATFORMDIR/Info.plist"
             echo "*** modified MacOSX Info.plist"
         fi
 
